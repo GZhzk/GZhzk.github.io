@@ -1,35 +1,71 @@
-/* 首页大图遮罩（官网质感） */
-#page-header.full_page::before {
+/* 全局样式重置：解决主题默认背景发灰问题 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* 根节点背景纯白，覆盖所有默认背景 */
+:root {
+  --bg-color: #ffffff !important;
+}
+
+/* ========== 浅色模式（核心：纯净纯白背景） ========== */
+body:not(.dark) {
+  background-color: #ffffff !important; /* 全局纯白背景，无灰调 */
+  background-image: none !important; /* 清除主题默认背景图/渐变 */
+}
+/* 浅色模式-首页大图遮罩（让文字更突出，可微调透明度） */
+body:not(.dark) #page-header.full_page::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.2) !important;
   z-index: 1;
 }
-
-#page-header.full_page .site-info {
+/* 浅色模式-首页文字（深黑，纯白背景下更清晰，不要白字） */
+body:not(.dark) #page-header.full_page .site-info {
   position: relative;
   z-index: 2;
-  color: #fff;
+}
+body:not(.dark) #page-header.full_page .site-info h1 {
+  color: #000000 !important; /* 首页大字深黑，纯白背景标配 */
+  font-weight: 700 !important;
+}
+body:not(.dark) #page-header.full_page .site-info .subtitle,
+body:not(.dark) #page-header.full_page .site-info .typed-cursor {
+  color: #333333 !important; /* 副标题浅黑，层次更优 */
 }
 
-/* 卡片精致阴影 */
+/* ========== 深色模式（适配黑底，首页文字纯白） ========== */
+body.dark {
+  background-color: #0d0d0d !important; /* 护眼黑底，比纯黑更友好 */
+}
+body.dark #page-header.full_page .site-info h1 {
+  color: #ffffff !important; /* 深色模式-首页大字纯白 */
+}
+body.dark #page-header.full_page .site-info .subtitle,
+body.dark #page-header.full_page .site-info .typed-cursor {
+  color: #f5f5f5 !important; /* 深色模式-副标题浅白 */
+}
+
+/* ========== 保留你想要的卡片美化+遮罩通用样式 ========== */
 .post-card {
   border-radius: 12px !important;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
   margin-bottom: 20px !important;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease !important;
 }
-
 .post-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12) !important;
 }
-
-/* 全局美化 */
-body {
-  background-color: #f5f5f5;
+/* 深色模式卡片阴影适配 */
+body.dark .post-card {
+  box-shadow: 0 4px 12px rgba(255,255,255,0.08) !important;
+}
+body.dark .post-card:hover {
+  box-shadow: 0 8px 20px rgba(255,255,255,0.12) !important;
 }
